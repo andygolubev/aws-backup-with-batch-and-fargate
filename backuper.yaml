@@ -1,7 +1,12 @@
 AWSTemplateFormatVersion: "2010-09-09"
 
-Resources:
+Parameters:
+  Param01:
+    Type: String
+    Description: 'Param01'
+    Default: "example"
 
+Resources:
   BackuperVPC:
     Type: AWS::EC2::VPC
     Properties:
@@ -22,7 +27,10 @@ Resources:
       VpcId:
         Ref: BackuperVPC
       CidrBlock: 10.0.0.0/24
-      AvailabilityZone: "us-west-2a"
+      AvailabilityZone: 
+        Fn::Select: 
+          - 0
+          - Fn::GetAZs: ""
       Tags:
         - Key: Name
           Value: BackuperSubnet
