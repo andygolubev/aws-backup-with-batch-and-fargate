@@ -83,6 +83,32 @@ Resources:
       Tags: {"Name" : "BackuperComputeEnvironment", "CreatedBy" : "CloudFormationStack", "App" : "Backuper"}
       State: ENABLED
 
+  BackuperJobDefinition:
+    Type: AWS::Batch::JobDefinition
+    Properties:
+      Type: container
+      JobDefinitionName: BackuperJobDefinition
+      ContainerProperties:
+        Command:
+          - /bin/bash
+          - -c
+          - /backuper/s3_backup_script.sh && /bin/bash -c /backuper/postgre_backup_script.sh
+        Privileged: true
+        JobRoleArn: String
+        ReadonlyRootFilesystem: true
+        ResourceRequirements:
+          - Type: MEMORY
+            Value: '1024'
+          - Type: VCPU
+            Value: '0.5'
+        Image: registry.hub.docker.com/interactiver/backuper:latest
+      Tags:
+        - Key: Name
+          Value: BackuperJobDefinition
+        - Key: CreatedBy
+          Value: CloudFormationStack
+        - Key: App
+          Value: Backuper
 
   AWSServiceRoleForBatch:
       Type: 'AWS::IAM::Role'
