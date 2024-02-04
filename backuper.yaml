@@ -90,7 +90,9 @@ Resources:
       JobDefinitionName: BackuperJobDefinition
       ContainerProperties:
         Environment:
-             - HELLO: world
+          - Name: HELLO
+            Value: world
+            
         Command:
           - /bin/bash
           - -c
