@@ -80,13 +80,13 @@ Resources:
         Type: FARGATE
         Subnets:
           - !Ref BackuperSubnet
-      # Tags:
-      #   - Key: Name
-      #     Value: BackuperComputeEnvironment
-      #   - Key: CreatedBy
-      #     Value: CloudFormationStack
-      #   - Key: App
-      #     Value: Backuper
+      Tags:
+        - Key: Name
+          Value: BackuperComputeEnvironment
+        - Key: CreatedBy
+          Value: CloudFormationStack
+        - Key: App
+          Value: Backuper
       State: ENABLED
 
 
@@ -121,22 +121,22 @@ Resources:
 
 
 
-  BackuperECSCluster:
-    Type: 'AWS::ECS::Cluster'
-    Properties:
-      ClusterName: BackuperECSCluster
-      CapacityProviders:
-        - FARGATE
-        - FARGATE_SPOT
-      DefaultCapacityProviderStrategy:
-        - CapacityProvider: FARGATE
-          Weight: 1
-        - CapacityProvider: FARGATE_SPOT
-          Weight: 1
-      Tags:
-        - Key: Name
-          Value: BackuperECSCluster
-        - Key: CreatedBy
-          Value: CloudFormationStack
-        - Key: App
-          Value: Backuper
+  # BackuperECSCluster:
+  #   Type: 'AWS::ECS::Cluster'
+  #   Properties:
+  #     ClusterName: BackuperECSCluster
+  #     CapacityProviders:
+  #       - FARGATE
+  #       - FARGATE_SPOT
+  #     DefaultCapacityProviderStrategy:
+  #       - CapacityProvider: FARGATE
+  #         Weight: 1
+  #       - CapacityProvider: FARGATE_SPOT
+  #         Weight: 1
+  #     Tags:
+  #       - Key: Name
+  #         Value: BackuperECSCluster
+  #       - Key: CreatedBy
+  #         Value: CloudFormationStack
+  #       - Key: App
+  #         Value: Backuper
