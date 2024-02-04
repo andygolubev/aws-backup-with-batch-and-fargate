@@ -77,7 +77,7 @@ Resources:
         MaxvCpus: 4
         SecurityGroupIds:
           - !Ref BackuperSecurityGroup
-        # Type: FARGATE
+        Type: EC2
         Subnets:
           - !Ref BackuperSubnet
       # Tags:
