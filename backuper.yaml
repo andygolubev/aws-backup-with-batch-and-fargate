@@ -89,6 +89,8 @@ Resources:
       Type: container
       JobDefinitionName: BackuperJobDefinition
       ContainerProperties:
+        Environment:
+             - HELLO: world
         Command:
           - /bin/bash
           - -c
@@ -102,13 +104,7 @@ Resources:
           - Type: VCPU
             Value: '0.5'
         Image: registry.hub.docker.com/interactiver/backuper:latest
-      Tags:
-        - Key: Name
-          Value: BackuperJobDefinition
-        - Key: CreatedBy
-          Value: CloudFormationStack
-        - Key: App
-          Value: Backuper
+      Tags: {"Name" : "BackuperJobDefinition", "CreatedBy" : "CloudFormationStack", "App" : "Backuper"}
 
   AWSServiceRoleForBatch:
       Type: 'AWS::IAM::Role'
