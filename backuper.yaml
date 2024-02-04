@@ -75,7 +75,7 @@ Resources:
                 - 'sts:AssumeRole'
         Path: /
         ManagedPolicyArns:
-             - arn:aws:iam::aws:policy/aws-service-role/BatchServiceRolePolicy""
+             - arn:aws:iam::aws:policy/aws-service-role/BatchServiceRolePolicy
 
 
 
