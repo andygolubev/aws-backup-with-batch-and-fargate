@@ -68,7 +68,7 @@ Resources:
     Type: AWS::Batch::ComputeEnvironment
     Properties:
       Type: MANAGED
-      ServiceRole: !Ref AWSServiceRoleForBatch
+      ServiceRole: !Ref AWSServiceLinkedRoleForBatch
       ComputeEnvironmentName: backuper-environment
       EksConfiguration:
         EksClusterArn: !Ref BackuperECSCluster
@@ -112,6 +112,12 @@ Resources:
             Value: CloudFormationStack
           - Key: App
             Value: Backuper
+
+  AWSServiceLinkedRoleForBatch:
+    Type: AWS::IAM::ServiceLinkedRole
+    Properties:
+      AWSServiceName: batch.amazonaws.com
+      Description: Service linked role for AWS Batch
 
 
 
