@@ -81,12 +81,9 @@ Resources:
         Subnets:
           - !Ref BackuperSubnet
       Tags:
-        - Key: Name
-          Value: BackuperComputeEnvironment
-        - Key: CreatedBy
-          Value: CloudFormationStack
-        - Key: App
-          Value: Backuper
+        Name: BackuperComputeEnvironment
+        CreatedBy: CloudFormationStack
+        App: Backuper
       State: ENABLED
 
 
