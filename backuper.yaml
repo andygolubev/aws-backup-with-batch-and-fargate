@@ -64,30 +64,28 @@ Resources:
         - Key: App
           Value: Backuper
 
-  # BackuperComputeEnvironment:
-  #   Type: AWS::Batch::ComputeEnvironment
-  #   Properties:
-  #     Type: MANAGED
-  #     ServiceRole: !Ref AWSServiceRoleForBatch
-  #     ComputeEnvironmentName: backuper-environment
-  #     ComputeResources:
-  #       MaxvCpus: 4
-  #       SecurityGroupIds:
-  #         - sg-abcd1234
-  #       Type: FARGATE
-  #       Subnets:
-  #         - subnet-aaaaaaaa
-  #         - subnet-bbbbbbbb
-  #         - subnet-cccccccc
-          # Tags:
-          #     - Key: Name
-          #       Value: BackuperComputeEnvironment
-          #     - Key: CreatedBy
-          #       Value: CloudFormationStack
-          #     - Key: App
-          #       Value: Backuper
-  #       DesiredvCpus: 48
-  #     State: ENABLED
+  BackuperComputeEnvironment:
+    Type: AWS::Batch::ComputeEnvironment
+    Properties:
+      Type: MANAGED
+      ServiceRole: !Ref AWSServiceRoleForBatch
+      ComputeEnvironmentName: backuper-environment
+      EksConfiguration: !Ref BackuperECSCluster
+      ComputeResources:
+        MaxvCpus: 4
+        SecurityGroupIds:
+          - !Ref BackuperSecurityGroup
+        Type: FARGATE
+        Subnets:
+          - !Ref BackuperSubnet
+      Tags:
+        - Key: Name
+          Value: BackuperComputeEnvironment
+        - Key: CreatedBy
+          Value: CloudFormationStack
+        - Key: App
+          Value: Backuper
+      State: ENABLED
 
 
   AWSServiceRoleForBatch:
