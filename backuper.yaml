@@ -104,7 +104,7 @@ Resources:
           - Type: MEMORY
             Value: '1024'
           - Type: VCPU
-            Value: '0.5'
+            Value: '1'
         Image: registry.hub.docker.com/interactiver/backuper:latest
       Tags: {"Name" : "BackuperJobDefinition", "CreatedBy" : "CloudFormationStack", "App" : "Backuper"}
 
