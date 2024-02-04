@@ -72,6 +72,7 @@ Resources:
       ComputeEnvironmentName: backuper-environment
       EksConfiguration:
         EksClusterArn: !Ref BackuperECSCluster
+        KubernetesNamespace: "ns-test"
       ComputeResources:
         MaxvCpus: 4
         SecurityGroupIds:
@@ -79,13 +80,13 @@ Resources:
         Type: FARGATE
         Subnets:
           - !Ref BackuperSubnet
-      Tags:
-        - Key: Name
-          Value: BackuperComputeEnvironment
-        - Key: CreatedBy
-          Value: CloudFormationStack
-        - Key: App
-          Value: Backuper
+      # Tags:
+      #   - Key: Name
+      #     Value: BackuperComputeEnvironment
+      #   - Key: CreatedBy
+      #     Value: CloudFormationStack
+      #   - Key: App
+      #     Value: Backuper
       State: ENABLED
 
 
