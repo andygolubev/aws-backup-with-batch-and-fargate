@@ -1,6 +1,34 @@
 AWSTemplateFormatVersion: "2010-09-09"
 
 Resources:
+
+  BackuperVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+      Tags:
+      - Key: stack
+        Value: production
+
+  BackuperSubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: BackuperVPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone: "us-west-2a"
+      Tags:
+      - Key: stack
+        Value: production
+
+  BackuperSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow all trafic
+      VpcId: !Ref BackuperVPC
+
   S3BuckerForBackups:
     Type: AWS::S3::Bucket
     Properties:
@@ -13,24 +41,24 @@ Resources:
            - Key: App
              Value: Backuper
 
-  BackuperComputeEnvironment:
-    Type: AWS::Batch::ComputeEnvironment
-    Properties:
-      Type: MANAGED
-      ServiceRole: !Ref AWSServiceRoleForBatch
-      ComputeEnvironmentName: backuper-environment
-      ComputeResources:
-        MaxvCpus: 4
-        SecurityGroupIds:
-          - sg-abcd1234
-        Type: FARGATE
-        Subnets:
-          - subnet-aaaaaaaa
-          - subnet-bbbbbbbb
-          - subnet-cccccccc
-        Tags: {"Name" : "backuper-environment", "App" : "Backuper", "CreatedBy" : "CloudFormationStack"}
-        DesiredvCpus: 48
-      State: ENABLED
+  # BackuperComputeEnvironment:
+  #   Type: AWS::Batch::ComputeEnvironment
+  #   Properties:
+  #     Type: MANAGED
+  #     ServiceRole: !Ref AWSServiceRoleForBatch
+  #     ComputeEnvironmentName: backuper-environment
+  #     ComputeResources:
+  #       MaxvCpus: 4
+  #       SecurityGroupIds:
+  #         - sg-abcd1234
+  #       Type: FARGATE
+  #       Subnets:
+  #         - subnet-aaaaaaaa
+  #         - subnet-bbbbbbbb
+  #         - subnet-cccccccc
+  #       Tags: {"Name" : "backuper-environment", "App" : "Backuper", "CreatedBy" : "CloudFormationStack"}
+  #       DesiredvCpus: 48
+  #     State: ENABLED
 
 
   AWSServiceRoleForBatch:
