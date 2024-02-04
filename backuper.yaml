@@ -80,10 +80,7 @@ Resources:
         Type: FARGATE
         Subnets:
           - !Ref BackuperSubnet
-      Tags:
-        Name: BackuperComputeEnvironment
-        CreatedBy: CloudFormationStack
-        App: Backuper
+      Tags: {"Name" : "BackuperComputeEnvironment", "CreatedBy" : "CloudFormationStack", "App" : "Backuper"}
       State: ENABLED
 
 
