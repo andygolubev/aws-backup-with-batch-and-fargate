@@ -4,9 +4,11 @@ Resources:
   S3BuckerForBackups:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: adsf2342343asfsdf
+      BucketName: backuper-bucket-0123456789
       Tags:
            - Key: Name
              Value: BackuperS3
            - Key: CreatedBy
              Value: CloudFormationStack
+           - Key: App
+             Value: Backuper
