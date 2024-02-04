@@ -68,7 +68,7 @@ Resources:
     Type: AWS::Batch::ComputeEnvironment
     Properties:
       Type: MANAGED
-      ServiceRole: !Ref AWSServiceRoleForBatch
+      ServiceRole: !Ref AWSServiceLinkedRoleForBatch
       ComputeEnvironmentName: backuper-environment
       EksConfiguration:
         EksClusterArn: !Ref BackuperECSCluster
@@ -80,7 +80,6 @@ Resources:
         Type: FARGATE
         Subnets:
           - !Ref BackuperSubnet
-      ServiceLinkedRole: !Ref AWSServiceLinkedRoleForBatch # Corrected reference
       # Tags:
       #   - Key: Name
       #     Value: BackuperComputeEnvironment
