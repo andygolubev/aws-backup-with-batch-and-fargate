@@ -9,8 +9,12 @@ Resources:
       EnableDnsSupport: 'true'
       EnableDnsHostnames: 'true'
       Tags:
-      - Key: stack
-        Value: production
+        - Key: Name
+          Value: BackuperVPC
+        - Key: CreatedBy
+          Value: CloudFormationStack
+        - Key: App
+          Value: Backuper
 
   BackuperSubnet:
     Type: AWS::EC2::Subnet
@@ -20,26 +24,37 @@ Resources:
       CidrBlock: 10.0.0.0/24
       AvailabilityZone: "us-west-2a"
       Tags:
-      - Key: stack
-        Value: production
+        - Key: Name
+          Value: BackuperSubnet
+        - Key: CreatedBy
+          Value: CloudFormationStack
+        - Key: App
+          Value: Backuper
 
   BackuperSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: Allow all trafic
       VpcId: !Ref BackuperVPC
+      Tags:
+        - Key: Name
+          Value: BackuperSG
+        - Key: CreatedBy
+          Value: CloudFormationStack
+        - Key: App
+          Value: Backuper
 
   S3BuckerForBackups:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: backuper-bucket-0123456789
       Tags:
-           - Key: Name
-             Value: BackuperS3
-           - Key: CreatedBy
-             Value: CloudFormationStack
-           - Key: App
-             Value: Backuper
+        - Key: Name
+          Value: BackuperS3
+        - Key: CreatedBy
+          Value: CloudFormationStack
+        - Key: App
+          Value: Backuper
 
   # BackuperComputeEnvironment:
   #   Type: AWS::Batch::ComputeEnvironment
@@ -56,7 +71,13 @@ Resources:
   #         - subnet-aaaaaaaa
   #         - subnet-bbbbbbbb
   #         - subnet-cccccccc
-  #       Tags: {"Name" : "backuper-environment", "App" : "Backuper", "CreatedBy" : "CloudFormationStack"}
+          # Tags:
+          #     - Key: Name
+          #       Value: BackuperComputeEnvironment
+          #     - Key: CreatedBy
+          #       Value: CloudFormationStack
+          #     - Key: App
+          #       Value: Backuper
   #       DesiredvCpus: 48
   #     State: ENABLED
 
@@ -75,8 +96,14 @@ Resources:
                 - 'sts:AssumeRole'
         Path: /
         ManagedPolicyArns:
-            #  - arn:aws:iam::aws:policy/aws-service-role/BatchServiceRolePolicy
              - arn:aws:iam::aws:policy/service-role/AWSBatchServiceRole
+        Tags:
+          - Key: Name
+            Value: BackuperSG
+          - Key: CreatedBy
+            Value: CloudFormationStack
+          - Key: App
+            Value: Backuper
 
 
 
