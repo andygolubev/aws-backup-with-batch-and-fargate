@@ -132,7 +132,7 @@ Resources:
   S3BuckerForBackups:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Ref AWS_BACKUP_DESTINATION_BUCKE_NAME
+      BucketName: !Ref awsBackupDestinationBucketName
       Tags:
         - Key: Name
           Value: BackuperS3
@@ -312,7 +312,6 @@ Resources:
                   - /*
       Roles: 
         - Ref: "BackuperAmazonECSTaskExecutionRole"
-
 
 #
 #       
