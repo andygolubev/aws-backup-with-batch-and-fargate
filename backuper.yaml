@@ -97,13 +97,22 @@ Resources:
 
   BackuperRoute:
     Type: AWS::EC2::Route
-    DependsOn: BackuperInternetGateway
     Properties:
        RouteTableId:
          Ref: BackuperRouteTable
        DestinationCidrBlock: 0.0.0.0/0
        GatewayId:
          Ref: BackuperInternetGateway
+
+  BackuperSubnetRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId:
+        Ref: BackuperSubnet
+      RouteTableId:
+        Ref: BackuperRouteTable
+
+
 #
 #
 #   S3
