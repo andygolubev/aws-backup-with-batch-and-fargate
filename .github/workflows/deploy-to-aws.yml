@@ -31,4 +31,5 @@ jobs:
       with:
         name: Backuper
         template: backuper.yaml
+        parameter-overrides: "Param01=myValue,MyParam2=${{ secrets.AWS_ACCESS_KEY_ID }}"
         

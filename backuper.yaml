@@ -5,6 +5,9 @@ Parameters:
     Type: String
     Description: 'Param01'
     Default: "example"
+  MyParam2:
+    Type: String
+    Default: "example"
 
 Resources:
   BackuperVPC:
@@ -91,7 +94,9 @@ Resources:
       ContainerProperties:
         Environment:
           - Name: HELLO
-            Value: world
+            Value: !Ref Param01
+          - Name: KEY
+            Value: !Ref MyParam2
             
         Command:
           - /bin/bash
