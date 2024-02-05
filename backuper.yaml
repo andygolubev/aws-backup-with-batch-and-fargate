@@ -126,9 +126,9 @@ Resources:
           - /bin/bash
           - -c
           - /backuper/s3_backup_script.sh && /bin/bash -c /backuper/postgre_backup_script.sh
-        Privileged: true
-        JobRoleArn: !Ref BackuperAmazonECSTaskExecutionRole
-        ExecutionRoleArn: !Ref BackuperAmazonECSTaskExecutionRole
+        Privileged: false
+        JobRoleArn: !GetAtt  BackuperAmazonECSTaskExecutionRole.Arn
+        ExecutionRoleArn: !GetAtt BackuperAmazonECSTaskExecutionRole.Arn
         ReadonlyRootFilesystem: true
         NetworkConfiguration:
           AssignPublicIp: ENABLED
