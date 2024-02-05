@@ -113,34 +113,72 @@ Resources:
         Image: registry.hub.docker.com/interactiver/backuper:latest
       Tags: {"Name" : "BackuperJobDefinition", "CreatedBy" : "CloudFormationStack", "App" : "Backuper"}
 
+#
+#       
+#       ROLES
+#  
+#
+
+
   AWSServiceRoleForBatch:
-      Type: 'AWS::IAM::Role'
-      Properties:
-        AssumeRolePolicyDocument:
-          Version: "2012-10-17"
-          Statement:
-            - Effect: Allow
-              Principal:
-                Service:
-                  - batch.amazonaws.com
-              Action:
-                - 'sts:AssumeRole'
-        Path: /
-        ManagedPolicyArns:
-             - arn:aws:iam::aws:policy/service-role/AWSBatchServiceRole
-        Tags:
-          - Key: Name
-            Value: AWSServiceRoleForBatch
-          - Key: CreatedBy
-            Value: CloudFormationStack
-          - Key: App
-            Value: Backuper
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - batch.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Path: /
+      ManagedPolicyArns:
+            - arn:aws:iam::aws:policy/service-role/AWSBatchServiceRole
+      Tags:
+        - Key: Name
+          Value: AWSServiceRoleForBatch
+        - Key: CreatedBy
+          Value: CloudFormationStack
+        - Key: App
+          Value: Backuper
 
   AWSServiceLinkedRoleForBatch:
     Type: AWS::IAM::ServiceLinkedRole
     Properties:
       AWSServiceName: batch.amazonaws.com
       Description: Service linked role for AWS Batch
+
+
+
+  BackuperAmazonECSTaskExecutionRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ecs-tasks.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Path: /
+      ManagedPolicyArns:
+            - arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy
+            - arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy
+      Tags:
+        - Key: Name
+          Value: BackuperAmazonECSTaskExecutionRole
+        - Key: CreatedBy
+          Value: CloudFormationStack
+        - Key: App
+          Value: Backuper
+
+
+
+
+
 
 
 
