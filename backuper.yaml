@@ -177,7 +177,18 @@ Resources:
 
 
 
-
+  BackuperS3PutObjectRoleforBackuper: 
+    Type: "AWS::IAM::Policy"
+    Properties: 
+      PolicyName: "BackuperS3PutObjectRoleforBackuper"
+      PolicyDocument: 
+        Version: "2012-10-17"
+        Statement: 
+          - Effect: "Allow"
+            Action: "*"
+            Resource: "*"
+      Roles: 
+        - Ref: "BackuperAmazonECSTaskExecutionRole"
 
 
 
