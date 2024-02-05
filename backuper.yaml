@@ -73,7 +73,7 @@ Resources:
   S3BuckerForBackups:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: backuper-bucket-01234567890
+      BucketName: backuper-bucket-012345678910
       Tags:
         - Key: Name
           Value: BackuperS3
