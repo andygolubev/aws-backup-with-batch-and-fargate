@@ -127,7 +127,7 @@ Resources:
         JobRoleArn: !Ref BackuperS3PutObjectRoleforBackuper
         ReadonlyRootFilesystem: true
         NetworkConfiguration:
-          AssignPublicIp: ENABLED
+          - AssignPublicIp: ENABLED
         ResourceRequirements:
           - Type: MEMORY
             Value: '1024'
