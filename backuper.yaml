@@ -131,12 +131,12 @@ Resources:
         ExecutionRoleArn: !Ref BackuperAmazonECSTaskExecutionRole
         ReadonlyRootFilesystem: true
         NetworkConfiguration:
-          AssignPublicIp: "ENABLED"
+          AssignPublicIp: ENABLED
         ResourceRequirements:
           - Type: MEMORY
-            Value: '1024'
+            Value: 1024
           - Type: VCPU
-            Value: '1'
+            Value: 0.5
         
       Tags: {"Name" : "BackuperJobDefinition", "CreatedBy" : "CloudFormationStack", "App" : "Backuper"}
 
