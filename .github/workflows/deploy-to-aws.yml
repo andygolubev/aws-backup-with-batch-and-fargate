@@ -31,5 +31,5 @@ jobs:
       with:
         name: Backuper
         template: backuper.yaml
-        parameter-overrides: "Param01=myValue,MyParam2=${{ secrets.AWS_ACCESS_KEY_ID }}"
+        parameter-overrides: "AWS_BACKUP_DESTINATION_BUCKE_NAME=${{ secrets.AWS_BACKUP_DESTINATION_BUCKE_NAME}},DO_PG_USER=${{ secrets.DO_PG_USER }},"
         

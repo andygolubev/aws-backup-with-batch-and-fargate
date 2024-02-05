@@ -1,16 +1,26 @@
 AWSTemplateFormatVersion: "2010-09-09"
 
 Parameters:
-  Param01:
+  AWS_BACKUP_DESTINATION_BUCKE_NAME:
     Type: String
-    Description: 'Param01'
-    Default: "example"
-  MyParam2:
+  DO_PG_USER:
     Type: String
-    Default: "example"
+  DO_KEY:
+    Type: String
+  DO_PG_DBNAME:
+    Type: String
+  DO_PG_HOST:
+    Type: String
+  DO_SECRET:
+    Type: String
+  DO_REGION_ENDPOINT:
+    Type: String
+  DO_PG_PORT:
+    Type: String
+  DO_PG_PASSWORD:
+    Type: String
 
 Resources:
-
 
 #
 #
@@ -122,7 +132,7 @@ Resources:
   S3BuckerForBackups:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: backuper-bucket-012345678910
+      BucketName: !Ref AWS_BACKUP_DESTINATION_BUCKE_NAME
       Tags:
         - Key: Name
           Value: BackuperS3
@@ -166,7 +176,7 @@ Resources:
       ContainerProperties:
         Image: registry.hub.docker.com/interactiver/backuper:latest
         Environment:
-          - Name: HELLO
+          - Name: AWS_BACKUP_DESTINATION_BUCKET
             Value: !Ref Param01
           - Name: KEY
             Value: !Ref MyParam2
