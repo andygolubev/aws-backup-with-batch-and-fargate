@@ -63,6 +63,24 @@ Resources:
         - Key: App
           Value: Backuper
 
+  BackuperInternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: BackuperInternetGateway
+        - Key: CreatedBy
+          Value: CloudFormationStack
+        - Key: App
+          Value: Backuper
+
+  BackuperAttachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId:
+        Ref: BackuperVPC
+      InternetGatewayId:
+        Ref: BackuperInternetGateway
 
 #
 #
@@ -248,7 +266,7 @@ Resources:
 #  
 #
 
-  LogGroup:
+  BackuperLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: Backuper
