@@ -103,7 +103,7 @@ Resources:
           - -c
           - /backuper/s3_backup_script.sh && /bin/bash -c /backuper/postgre_backup_script.sh
         Privileged: true
-        JobRoleArn: String
+        JobRoleArn: !Ref BackuperS3PutObjectRoleforBackuper
         ReadonlyRootFilesystem: true
         ResourceRequirements:
           - Type: MEMORY
@@ -112,6 +112,18 @@ Resources:
             Value: '1'
         Image: registry.hub.docker.com/interactiver/backuper:latest
       Tags: {"Name" : "BackuperJobDefinition", "CreatedBy" : "CloudFormationStack", "App" : "Backuper"}
+
+
+  BackuperJobQueue:
+    Type: AWS::Batch::JobQueue
+    Properties:
+      ComputeEnvironmentOrder:
+        - Order: 1
+          ComputeEnvironment: !Ref BackuperComputeEnvironment
+      State: ENABLED
+      Priority: 1
+      JobQueueName: HighPriority
+
 
 #
 #       
