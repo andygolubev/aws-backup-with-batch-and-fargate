@@ -113,6 +113,7 @@ Resources:
       Type: container
       JobDefinitionName: BackuperJobDefinition
       ContainerProperties:
+        Image: registry.hub.docker.com/interactiver/backuper:latest
         Environment:
           - Name: HELLO
             Value: !Ref Param01
@@ -127,13 +128,13 @@ Resources:
         JobRoleArn: !Ref BackuperS3PutObjectRoleforBackuper
         ReadonlyRootFilesystem: true
         NetworkConfiguration:
-          - AssignPublicIp: ENABLED
+          AssignPublicIp: "ENABLED"
         ResourceRequirements:
           - Type: MEMORY
             Value: '1024'
           - Type: VCPU
             Value: '1'
-        Image: registry.hub.docker.com/interactiver/backuper:latest
+        
       Tags: {"Name" : "BackuperJobDefinition", "CreatedBy" : "CloudFormationStack", "App" : "Backuper"}
 
 
