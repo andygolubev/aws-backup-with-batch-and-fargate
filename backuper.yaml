@@ -185,12 +185,29 @@ Resources:
         Version: "2012-10-17"
         Statement: 
           - Effect: "Allow"
-            Action: "*"
-            Resource: "*"
+            Action: 
+              - 's3:PutObject'
+              - 's3:ListBucket'
+            Resource:
+              - !Join
+                - ''
+                - - 'arn:aws:s3:::'
+                  - !Ref S3BuckerForBackups
+                  - /*
       Roles: 
         - Ref: "BackuperAmazonECSTaskExecutionRole"
 
-
+# [ S3BuckerForBackups.Bucket
+#         {
+#             "Sid": "VisualEditor0",
+#             "Effect": "Allow",
+#             "Action": [
+#                 "s3:PutObject",
+#                 "s3:ListBucket"
+#             ],
+#             "Resource": "arn:aws:s3:::backuper-bucket-555/*"
+#         }
+#     ]
 
 
   # BackuperECSCluster:
