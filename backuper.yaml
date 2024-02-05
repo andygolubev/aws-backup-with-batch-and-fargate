@@ -1,23 +1,23 @@
 AWSTemplateFormatVersion: "2010-09-09"
 
 Parameters:
-  AWS_BACKUP_DESTINATION_BUCKE_NAME:
+  awsBackupDestinationBucketName:
     Type: String
-  DO_PG_USER:
+  doPgUser:
     Type: String
-  DO_KEY:
+  doKey:
     Type: String
-  DO_PG_DBNAME:
+  doPgDbname:
     Type: String
-  DO_PG_HOST:
+  doPgHost:
     Type: String
-  DO_SECRET:
+  doSecret:
     Type: String
-  DO_REGION_ENDPOINT:
+  doRegionEndpoint:
     Type: String
-  DO_PG_PORT:
+  doPgPort:
     Type: String
-  DO_PG_PASSWORD:
+  doPgPassword:
     Type: String
 
 Resources:
@@ -176,11 +176,24 @@ Resources:
       ContainerProperties:
         Image: registry.hub.docker.com/interactiver/backuper:latest
         Environment:
-          - Name: AWS_BACKUP_DESTINATION_BUCKET
-            Value: !Ref Param01
-          - Name: KEY
-            Value: !Ref MyParam2
-            
+          - Name: AWS_BACKUP_DESTINATION_BUCKE_NAME
+            Value: !Ref awsBackupDestinationBucketName
+          - Name: DO_PG_USER
+            Value: !Ref doPgUser
+          - Name: DO_KEY
+            Value: !Ref doKey
+          - Name: DO_PG_DBNAME
+            Value: !Ref doPgDbname
+          - Name: DO_PG_HOST
+            Value: !Ref doPgHost
+          - Name: DO_SECRET
+            Value: !Ref doSecret
+          - Name: DO_REGION_ENDPOINT
+            Value: !Ref doRegionEndpoint
+          - Name: DO_PG_PORT
+            Value: !Ref doPgPort
+          - Name: DO_PG_PASSWORD
+            Value: !Ref doPgPassword
         Command:
           - /bin/bash
           - -c
