@@ -82,6 +82,28 @@ Resources:
       InternetGatewayId:
         Ref: BackuperInternetGateway
 
+  BackuperRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:  
+        Ref: BackuperVPC
+      Tags:
+        - Key: Name
+          Value: BackuperRouteTable
+        - Key: CreatedBy
+          Value: CloudFormationStack
+        - Key: App
+          Value: Backuper
+
+  BackuperRoute:
+    Type: AWS::EC2::Route
+    DependsOn: BackuperInternetGateway
+    Properties:
+       RouteTableId:
+         Ref: BackuperRouteTable
+       DestinationCidrBlock: 0.0.0.0/0
+       GatewayId:
+         Ref: BackuperInternetGateway
 #
 #
 #   S3
