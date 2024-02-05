@@ -137,7 +137,11 @@ Resources:
             Value: 1024
           - Type: VCPU
             Value: 0.5
-        
+        LogConfiguration:
+          LogDriver: awslogs
+          Options:
+            "awslogs-group": !Ref BackuperLogGroup
+            "awslogs-stream-prefix": "prefix"
       Tags: {"Name" : "BackuperJobDefinition", "CreatedBy" : "CloudFormationStack", "App" : "Backuper"}
 
 
@@ -237,35 +241,15 @@ Resources:
       Roles: 
         - Ref: "BackuperAmazonECSTaskExecutionRole"
 
-# [ S3BuckerForBackups.Bucket
-#         {
-#             "Sid": "VisualEditor0",
-#             "Effect": "Allow",
-#             "Action": [
-#                 "s3:PutObject",
-#                 "s3:ListBucket"
-#             ],
-#             "Resource": "arn:aws:s3:::backuper-bucket-555/*"
-#         }
-#     ]
 
+#
+#       
+#       Logs
+#  
+#
 
-  # BackuperECSCluster:
-  #   Type: 'AWS::ECS::Cluster'
-  #   Properties:
-  #     ClusterName: BackuperECSCluster
-  #     CapacityProviders:
-  #       - FARGATE
-  #       - FARGATE_SPOT
-  #     DefaultCapacityProviderStrategy:
-  #       - CapacityProvider: FARGATE
-  #         Weight: 1
-  #       - CapacityProvider: FARGATE_SPOT
-  #         Weight: 1
-  #     Tags:
-  #       - Key: Name
-  #         Value: BackuperECSCluster
-  #       - Key: CreatedBy
-  #         Value: CloudFormationStack
-  #       - Key: App
-  #         Value: Backuper
+  LogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: Backuper
+      RetentionInDays: 7
