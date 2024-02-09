@@ -250,16 +250,19 @@ Resources:
         #     "JobDefinition": "${!GetAtt BackuperJobDefinition.Arn }",
         #     "JobQueue": "${!GetAtt BackuperJobQueue.Arn }"        
         #   }
-        Input:
-          !Join |
-            - ''
-            - - '{ "JobName": "scheduled-batch-job", '
-              - '"JobDefinition": "'
-              - !GetAtt BackuperJobDefinition.Arn
-              - '", '
-              - '"JobQueue": "'
-              - !GetAtt BackuperJobQueue.Arn
-              - '" }'
+        Input: " {\"JobName\": \"scheduled-batch-job\", \
+                  \"JobDefinition\": \" ${{ !GetAtt BackuperJobDefinition.Arn }} \", \
+                  \"JobQueue\": \"${ !GetAtt BackuperJobQueue.Arn }\" } " 
+        # Input:
+        #   !Join |
+        #     - ''
+        #     - - '{ "JobName": "scheduled-batch-job", '
+        #       - '"JobDefinition": "'
+        #       - !GetAtt BackuperJobDefinition.Arn
+        #       - '", '
+        #       - '"JobQueue": "'
+        #       - !GetAtt BackuperJobQueue.Arn
+        #       - '" }'
 
 #
 #       
