@@ -151,7 +151,7 @@ Resources:
     Type: AWS::Batch::ComputeEnvironment
     Properties:
       Type: MANAGED
-      ComputeEnvironmentName: backuper-environment"
+      ComputeEnvironmentName: backuper-environment
       ComputeResources:
         MaxvCpus: 4
         SecurityGroupIds:
