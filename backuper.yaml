@@ -227,6 +227,33 @@ Resources:
 
 #
 #       
+#       Event Bridge
+#  
+#
+
+  BackuperJobScheduler:
+    Type: AWS::Scheduler::Schedule
+    Properties:
+      Name: BackuperDailyRun
+      Description: String
+      FlexibleTimeWindow: 
+        MaximumWindowInMinutes: 30
+        Mode: "FLEXIBLE"
+      ScheduleExpression: "cron(00 8 * * ? *)"
+      State: ENABLED
+      Target: 
+        Arn: arn:aws:scheduler:::aws-sdk:batch:submitJob
+        RoleArn: !GetAtt BackuperEventBridgeSubmitJobRole.Arn     
+        Input: !Sub |
+          {
+            "JobName": "scheduled-batch-job",
+            "JobDefinition": "${!GetAtt BackuperJobDefinition.Arn }",
+            "JobQueue": "${!GetAtt BackuperJobQueue.Arn }"        
+          }
+
+
+#
+#       
 #       ROLES
 #  
 #
@@ -308,6 +335,33 @@ Resources:
                   - /*
       Roles: 
         - Ref: "BackuperAmazonECSTaskExecutionRole"
+
+
+
+  
+
+  BackuperEventBridgeSubmitJobRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - scheduler.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Path: /
+      ManagedPolicyArns:
+            - arn:aws:iam::aws:policy/service-role/AWSBatchServiceEventTargetRole
+      Tags:
+        - Key: Name
+          Value: BackuperEventBridgeSubmitJobRole
+        - Key: CreatedBy
+          Value: CloudFormationStack
+        - Key: App
+          Value: Backuper
 
 #
 #       
