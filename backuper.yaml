@@ -197,7 +197,7 @@ Resources:
         Privileged: false
         JobRoleArn: !GetAtt  BackuperAmazonECSTaskExecutionRole.Arn
         ExecutionRoleArn: !GetAtt BackuperAmazonECSTaskExecutionRole.Arn
-        ReadonlyRootFilesystem: true
+        ReadonlyRootFilesystem: false
         NetworkConfiguration:
           AssignPublicIp: ENABLED
         ResourceRequirements:
