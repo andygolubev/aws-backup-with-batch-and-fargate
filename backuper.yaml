@@ -151,11 +151,7 @@ Resources:
     Type: AWS::Batch::ComputeEnvironment
     Properties:
       Type: MANAGED
-      # ServiceRole: !Ref AWSServiceLinkedRoleForBatch
-      ComputeEnvironmentName: backuper-environment
-      # EksConfiguration:
-      #   EksClusterArn: !Ref BackuperECSCluster
-      #   KubernetesNamespace: "ns-test"
+      ComputeEnvironmentName: backuper-environment"
       ComputeResources:
         MaxvCpus: 4
         SecurityGroupIds:
