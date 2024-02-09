@@ -32,7 +32,7 @@ jobs:
         name: Backuper
         template: backuper.yaml
         parameter-overrides: >
-          awsBackupDestinationBucketName=${{ secrets.AWS_BACKUP_DESTINATION_BUCKET_NAME}}, 
+          awsBackupDestinationBucketName=${{ secrets.AWS_BACKUP_DESTINATION_BUCKET_NAME }}, 
           doPgUser=${{ secrets.DO_PG_USER }}, 
           doKey=${{ secrets.DO_KEY }}, 
           doPgDbname=${{ secrets.DO_PG_DBNAME }}, 

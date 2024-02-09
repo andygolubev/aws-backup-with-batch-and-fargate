@@ -172,7 +172,7 @@ Resources:
       ContainerProperties:
         Image: registry.hub.docker.com/interactiver/backuper:latest
         Environment:
-          - Name: AWS_BACKUP_DESTINATION_BUCKE_NAME
+          - Name: AWS_BACKUP_DESTINATION_BUCKET
             Value: !Ref awsBackupDestinationBucketName
           - Name: DO_PG_USER
             Value: !Ref doPgUser
