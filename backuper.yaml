@@ -254,9 +254,7 @@ Resources:
         #           \"JobDefinition\": \" ${{ !GetAtt BackuperJobDefinition.Arn }} \", \
         #           \"JobQueue\": \"${ !GetAtt BackuperJobQueue.Arn }\" } " 
         Input: !Sub 
-          - ' {\"JobName\": \"scheduled-batch-job\", \
-                  \"JobDefinition\": \" ${BackuperJobDefinitionValue} \", \
-                  \"JobQueue\": \" ${BackuperJobDefinitionValue} \" } '
+          - ' {"JobName": "scheduled-batch-job", "JobDefinition": " ${BackuperJobDefinitionValue} ", "JobQueue": " ${BackuperJobDefinitionValue} " } '
           -  BackuperJobDefinitionValue: !Ref BackuperJobDefinition
         # Input: !Sub |
         #   {
