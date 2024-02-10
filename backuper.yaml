@@ -237,10 +237,10 @@ Resources:
       Name: BackuperDailyRun
       Description: String
       FlexibleTimeWindow: 
-        MaximumWindowInMinutes: 30
+        MaximumWindowInMinutes: 5
         Mode: "FLEXIBLE"
       # ScheduleExpression: "cron(00 8 * * ? *)"
-      ScheduleExpression: "cron(20 * * * ? *)"
+      ScheduleExpression: "cron(* /5 * * ? *)"
       State: ENABLED
       Target: 
         Arn: arn:aws:scheduler:::aws-sdk:batch:submitJob
