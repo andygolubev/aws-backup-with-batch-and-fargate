@@ -256,9 +256,9 @@ Resources:
         Input: !Sub 
           - !Join 
             - ''
-            - ' {"JobName": "scheduled-batch-job", '
-            - '  "JobDefinition": " ${BackuperJobDefinitionValue} ", '
-            - '  "JobQueue": " ${BackuperJobQueueValue} " } '
+            - - ' {"JobName": "scheduled-batch-job", '
+            - - '  "JobDefinition": " ${BackuperJobDefinitionValue} ", '
+            - - '  "JobQueue": " ${BackuperJobQueueValue} " } '
           - BackuperJobDefinitionValue: !Ref BackuperJobDefinition
           - BackuperJobQueueValue: !Ref BackuperJobQueue
         # Input: !Sub |
