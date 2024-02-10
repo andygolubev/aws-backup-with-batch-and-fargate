@@ -251,17 +251,13 @@ Resources:
             BackuperJobQueueValue: !Ref BackuperJobQueue
 
 
+
+
   BackuperEventRule: 
     Type: AWS::Events::Rule
     Properties: 
-      Description: "EventRule for Backupere"
-      EventPattern: 
-        detail-type: 
-          - "AWS API Call via CloudTrail"
-        detail: 
-          userIdentity: 
-            type: 
-              - "Root"
+      Description: "EventRule for Backuper"
+      EventPattern: { "source": ["aws.batch"], "detail-type": ["Batch Job State Change"] }
       State: "ENABLED"
       Targets: 
         - 
