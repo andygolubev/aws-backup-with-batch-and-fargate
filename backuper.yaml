@@ -240,7 +240,7 @@ Resources:
         MaximumWindowInMinutes: 5
         Mode: "FLEXIBLE"
       # ScheduleExpression: "cron(00 8 * * ? *)"
-      ScheduleExpression: "cron(* */10 * * ? *)"
+      ScheduleExpression: "cron(*/10 * * * ? *)"
       State: ENABLED
       Target: 
         Arn: arn:aws:scheduler:::aws-sdk:batch:submitJob
