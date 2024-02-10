@@ -244,34 +244,9 @@ Resources:
       Target: 
         Arn: arn:aws:scheduler:::aws-sdk:batch:submitJob
         RoleArn: !GetAtt BackuperEventBridgeSubmitJobRole.Arn     
-        # Input: !Sub |
-        #   {
-        #     "JobName": "scheduled-batch-job",
-        #     "JobDefinition": "${!GetAtt BackuperJobDefinition.Arn }",
-        #     "JobQueue": "${!GetAtt BackuperJobQueue.Arn }"        
-        #   }
-        # Input: " {\"JobName\": \"scheduled-batch-job\", \
-        #           \"JobDefinition\": \" ${{ !GetAtt BackuperJobDefinition.Arn }} \", \
-        #           \"JobQueue\": \"${ !GetAtt BackuperJobQueue.Arn }\" } " 
         Input: !Sub 
-          - ' { "JobName": "scheduled-batch-job", "JobDefinition": "${BackuperJobDefinitionValue}", "JobQueue": "${BackuperJobQueueValue}" } '
-          - BackuperJobDefinitionValue: !Ref BackuperJobDefinition
-          - BackuperJobQueueValue: !Ref BackuperJobQueue
-        # Input: !Sub |
-        #   {
-        #     "JobName": "scheduled-batch-job",
-        #     "JobDefinition": "${!GetAtt BackuperJobDefinition.Arn }",
-        #     "JobQueue": "${!GetAtt BackuperJobQueue.Arn }"        
-        #   }      
-        # Input: !Join
-        #   - ''
-        #   - - '{ "JobName": "scheduled-batch-job", '
-        #     - '"JobDefinition": "'
-        #     - !GetAtt BackuperJobDefinition.Arn
-        #     - '", '
-        #     - '"JobQueue": "'
-        #     - !GetAtt BackuperJobQueue.Arn
-        #     - '" }'
+          - ' {"JobName": "scheduled-batch-job", "JobDefinition": " ${BackuperJobDefinitionValue} ", "JobQueue": " ${BackuperJobDefinitionValue} " } '
+          -  BackuperJobDefinitionValue: !Ref BackuperJobDefinition
 
 #
 #       
