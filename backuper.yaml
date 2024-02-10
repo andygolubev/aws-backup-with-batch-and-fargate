@@ -250,9 +250,6 @@ Resources:
           - BackuperJobDefinitionValue: !Ref BackuperJobDefinition
             BackuperJobQueueValue: !Ref BackuperJobQueue
 
-
-
-
   BackuperEventRule: 
     Type: AWS::Events::Rule
     Properties: 
@@ -264,6 +261,14 @@ Resources:
           Arn: 
             Ref: "BackuperSNSTopic"
           Id: "BackuperSNSTopic"
+          InputTransformer:
+              InputPathsMap:
+                  jobname: $.detail.jobName
+                  status: $.detail.status
+                  eventtime: $.time
+              InputTemplate: |
+                  "Task '<jobname>' is in status: <status>"
+                  "Event time: <eventtime>"          
   EventTopicPolicy:
     Type: 'AWS::SNS::TopicPolicy'
     Properties:
