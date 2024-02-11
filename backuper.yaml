@@ -36,13 +36,7 @@ Resources:
       CidrBlock: 10.0.0.0/16
       EnableDnsSupport: 'true'
       EnableDnsHostnames: 'true'
-      Tags:
-        - Key: Name
-          Value: BackuperVPC
-        - Key: CreatedBy
-          Value: CloudFormationStack
-        - Key: App
-          Value: Backuper
+      Tags: {"Name" : "BackuperVPC", "CreatedBy" : "CloudFormationStack", "App" : "Backuper"}
 
   BackuperSubnet:
     Type: AWS::EC2::Subnet
@@ -54,37 +48,19 @@ Resources:
         Fn::Select: 
           - 0
           - Fn::GetAZs: ""
-      Tags:
-        - Key: Name
-          Value: BackuperSubnet
-        - Key: CreatedBy
-          Value: CloudFormationStack
-        - Key: App
-          Value: Backuper
+      Tags: {"Name" : "BackuperSubnet", "CreatedBy" : "CloudFormationStack", "App" : "Backuper"}
 
   BackuperSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: Allow all trafic
       VpcId: !Ref BackuperVPC
-      Tags:
-        - Key: Name
-          Value: BackuperSG
-        - Key: CreatedBy
-          Value: CloudFormationStack
-        - Key: App
-          Value: Backuper
+      Tags: {"Name" : "BackuperSecurityGroup", "CreatedBy" : "CloudFormationStack", "App" : "Backuper"}
 
   BackuperInternetGateway:
     Type: AWS::EC2::InternetGateway
     Properties:
-      Tags:
-        - Key: Name
-          Value: BackuperInternetGateway
-        - Key: CreatedBy
-          Value: CloudFormationStack
-        - Key: App
-          Value: Backuper
+      Tags: {"Name" : "BackuperInternetGateway", "CreatedBy" : "CloudFormationStack", "App" : "Backuper"}
 
   BackuperAttachGateway:
     Type: AWS::EC2::VPCGatewayAttachment
@@ -99,13 +75,7 @@ Resources:
     Properties:
       VpcId:  
         Ref: BackuperVPC
-      Tags:
-        - Key: Name
-          Value: BackuperRouteTable
-        - Key: CreatedBy
-          Value: CloudFormationStack
-        - Key: App
-          Value: Backuper
+      Tags: {"Name" : "BackuperRouteTable", "CreatedBy" : "CloudFormationStack", "App" : "Backuper"}
 
   BackuperRoute:
     Type: AWS::EC2::Route
