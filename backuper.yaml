@@ -172,7 +172,7 @@ Resources:
       PlatformCapabilities:
         - FARGATE
       ContainerProperties:
-        Image: registry.hub.docker.com/interactiver/backuper:latest
+        Image: registry.hub.docker.com/andygolubev/backuper:latest
         Environment:
           - Name: AWS_BACKUP_DESTINATION_BUCKET
             Value: !Ref awsBackupDestinationBucketName
