@@ -47,7 +47,7 @@ do \n\
   zip --recurse-paths --quiet /backup/$ZIP_FILE_DATE_TIME-UTC-$BUCKET-bucket_backup.zip /backup/$BUCKET/ \n\
   aws s3 cp --storage-class GLACIER_IR /backup/$ZIP_FILE_DATE_TIME-UTC-$BUCKET-bucket_backup.zip  s3://$AWS_BACKUP_DESTINATION_BUCKET \n\
   echo "Successfully Processed -> $BUCKET" \n\
-done \
+done \n\
 echo "Bucket backup is COMPLITED" \
 ' >> /backuper/s3_backup_script.sh
 
