@@ -415,7 +415,7 @@ Resources:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: Backuper
-      RetentionInDays: 10
+      RetentionInDays: 14
       Tags:
         - Key: Name
           Value: BackuperLogGroup
