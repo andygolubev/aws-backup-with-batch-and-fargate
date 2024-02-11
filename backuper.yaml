@@ -272,9 +272,10 @@ Resources:
               InputTemplate: |
                   "Task '<jobname>' is in status: <status>"
                   "Event time: <eventtime>"
-                  "Region: <region>"          
-  EventTopicPolicy:
-    Type: 'AWS::SNS::TopicPolicy'
+                  "Region: <region>"  
+
+  BackuperEventTopicPolicy:
+    Type: AWS::SNS::TopicPolicy
     Properties:
       PolicyDocument:
         Statement:
@@ -294,8 +295,13 @@ Resources:
       Subscription:
         - Endpoint: !Ref snsNotificationEmail
           Protocol: "email"
-
-    
+      Tags:
+        - Key: BackuperSNSTopic
+          Value: BackuperVPC
+        - Key: CreatedBy
+          Value: CloudFormationStack
+        - Key: App
+          Value: Backuper
 
 #
 #       
@@ -303,9 +309,8 @@ Resources:
 #  
 #
 
-
   AWSServiceRoleForBatch:
-    Type: 'AWS::IAM::Role'
+    Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
@@ -333,10 +338,8 @@ Resources:
       AWSServiceName: batch.amazonaws.com
       Description: Service linked role for AWS Batch
 
-
-
   BackuperAmazonECSTaskExecutionRole:
-    Type: 'AWS::IAM::Role'
+    Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
@@ -359,10 +362,8 @@ Resources:
         - Key: App
           Value: Backuper
 
-
-
   BackuperS3PutObjectRoleforBackuper: 
-    Type: "AWS::IAM::Policy"
+    Type: AWS::IAM::Policy
     Properties: 
       PolicyName: "BackuperS3PutObjectRoleforBackuper"
       PolicyDocument: 
@@ -381,12 +382,8 @@ Resources:
       Roles: 
         - Ref: "BackuperAmazonECSTaskExecutionRole"
 
-
-
-  
-
   BackuperEventBridgeSubmitJobRole:
-    Type: 'AWS::IAM::Role'
+    Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
@@ -418,4 +415,11 @@ Resources:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: Backuper
-      RetentionInDays: 7
+      RetentionInDays: 10
+      Tags:
+        - Key: Name
+          Value: BackuperLogGroup
+        - Key: CreatedBy
+          Value: CloudFormationStack
+        - Key: App
+          Value: Backuper
