@@ -68,4 +68,4 @@ echo "Postgre backup is COMPLITED" \
 RUN chmod +x /backuper/s3_backup_script.sh
 RUN chmod +x /backuper/postgre_backup_script.sh
 
-ENTRYPOINT ["/bin/bash", "-c",  "/backuper/s3_backup_script.sh && /bin/bash -c /backuper/postgre_backup_script.sh"]ocker 
+ENTRYPOINT ["/bin/bash", "-c",  "/backuper/s3_backup_script.sh && /bin/bash -c /backuper/postgre_backup_script.sh"]
