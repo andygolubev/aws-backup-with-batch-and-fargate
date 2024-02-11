@@ -19,6 +19,8 @@ Parameters:
     Type: String
   doPgPassword:
     Type: String
+  snsNotificationEmail:
+    Type: String
 
 Resources:
 
@@ -231,24 +233,24 @@ Resources:
 #  
 #
 
-  BackuperJobScheduler:
-    Type: AWS::Scheduler::Schedule
-    Properties:
-      Name: BackuperDailyRun
-      Description: String
-      FlexibleTimeWindow: 
-        MaximumWindowInMinutes: 5
-        Mode: "FLEXIBLE"
-      # ScheduleExpression: "cron(00 8 * * ? *)"
-      ScheduleExpression: "cron(*/10 * * * ? *)"
-      State: ENABLED
-      Target: 
-        Arn: arn:aws:scheduler:::aws-sdk:batch:submitJob
-        RoleArn: !GetAtt BackuperEventBridgeSubmitJobRole.Arn     
-        Input: !Sub 
-          - ' {"JobName": "scheduled-backuper-job", "JobDefinition": "${BackuperJobDefinitionValue}", "JobQueue": "${BackuperJobQueueValue}" } '
-          - BackuperJobDefinitionValue: !Ref BackuperJobDefinition
-            BackuperJobQueueValue: !Ref BackuperJobQueue
+  # BackuperJobScheduler:
+  #   Type: AWS::Scheduler::Schedule
+  #   Properties:
+  #     Name: BackuperDailyRun
+  #     Description: String
+  #     FlexibleTimeWindow: 
+  #       MaximumWindowInMinutes: 5
+  #       Mode: "FLEXIBLE"
+  #     ScheduleExpression: "cron(00 8 * * ? *)"
+  #     # ScheduleExpression: "cron(*/10 * * * ? *)"
+  #     State: ENABLED
+  #     Target: 
+  #       Arn: arn:aws:scheduler:::aws-sdk:batch:submitJob
+  #       RoleArn: !GetAtt BackuperEventBridgeSubmitJobRole.Arn     
+  #       Input: !Sub 
+  #         - ' {"JobName": "scheduled-backuper-job", "JobDefinition": "${BackuperJobDefinitionValue}", "JobQueue": "${BackuperJobQueueValue}" } '
+  #         - BackuperJobDefinitionValue: !Ref BackuperJobDefinition
+  #           BackuperJobQueueValue: !Ref BackuperJobQueue
 
   BackuperEventRule: 
     Type: AWS::Events::Rule
@@ -266,9 +268,11 @@ Resources:
                   jobname: $.detail.jobName
                   status: $.detail.status
                   eventtime: $.time
+                  region: $.region
               InputTemplate: |
                   "Task '<jobname>' is in status: <status>"
-                  "Event time: <eventtime>"          
+                  "Event time: <eventtime>"
+                  "Region: <region>"          
   EventTopicPolicy:
     Type: 'AWS::SNS::TopicPolicy'
     Properties:
@@ -288,7 +292,7 @@ Resources:
     Properties:
       TopicName: "BackuperTopic"
       Subscription:
-        - Endpoint: "testawsevents23452345435@proton.me"
+        - Endpoint: !Ref snsNotificationEmail
           Protocol: "email"
 
     
