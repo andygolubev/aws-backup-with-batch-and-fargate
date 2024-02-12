@@ -5,7 +5,7 @@ on:
     branches: [ "main" ]
 
 env:
-  AWS_REGION: il-central-1
+  AWS_REGION: eu-central-1
   
 permissions:
   contents: read
