@@ -233,23 +233,23 @@ Resources:
 #  
 #
 
-  # BackuperJobScheduler:
-  #   Type: AWS::Scheduler::Schedule
-  #   Properties:
-  #     Name: BackuperDailyRun
-  #     Description: String
-  #     FlexibleTimeWindow: 
-  #       MaximumWindowInMinutes: 5
-  #       Mode: "FLEXIBLE"
-  #     ScheduleExpression: "cron(00 8 * * ? *)"
-  #     State: ENABLED
-  #     Target: 
-  #       Arn: arn:aws:scheduler:::aws-sdk:batch:submitJob
-  #       RoleArn: !GetAtt BackuperEventBridgeSubmitJobRole.Arn     
-  #       Input: !Sub 
-  #         - ' {"JobName": "scheduled-backuper-job", "JobDefinition": "${BackuperJobDefinitionValue}", "JobQueue": "${BackuperJobQueueValue}" } '
-  #         - BackuperJobDefinitionValue: !Ref BackuperJobDefinition
-  #           BackuperJobQueueValue: !Ref BackuperJobQueue
+  BackuperJobScheduler:
+    Type: AWS::Scheduler::Schedule
+    Properties:
+      Name: BackuperDailyRun
+      Description: String
+      FlexibleTimeWindow: 
+        MaximumWindowInMinutes: 5
+        Mode: "FLEXIBLE"
+      ScheduleExpression: "cron(00 8 * * ? *)"
+      State: ENABLED
+      Target: 
+        Arn: arn:aws:scheduler:::aws-sdk:batch:submitJob
+        RoleArn: !GetAtt BackuperEventBridgeSubmitJobRole.Arn     
+        Input: !Sub 
+          - ' {"JobName": "scheduled-backuper-job", "JobDefinition": "${BackuperJobDefinitionValue}", "JobQueue": "${BackuperJobQueueValue}" } '
+          - BackuperJobDefinitionValue: !Ref BackuperJobDefinition
+            BackuperJobQueueValue: !Ref BackuperJobQueue
 
   BackuperEventRule: 
     Type: AWS::Events::Rule
